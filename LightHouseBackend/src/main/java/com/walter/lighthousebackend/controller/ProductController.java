@@ -13,6 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This is a REST controller for product-related functionalities.
+ * It includes APIs to perform CRUD operations on Product and its reviews.
+ */
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin
@@ -21,6 +25,10 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    /**
+     * Gets the list of all products.
+     * @return list of products.
+     */
     @GetMapping("/products")
     public ResponseEntity<?> getProducts() {
         List<Product> products = productService.getAllProducts();
@@ -32,6 +40,13 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+
+    /**
+     * Creates a new Product.
+     * @param product The product details.
+     * @param file The image file associated with the product.
+     * @return response of the product creation process.
+     */
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile file) {
         Product savedProduct = null;
@@ -44,6 +59,11 @@ public class ProductController {
         }
     }
 
+    /**
+     * Gets a single Product by its id.
+     * @param id The id of the product.
+     * @return product details.
+     */
     @GetMapping("/product/{id}")
     public ResponseEntity<?> getProduct(@PathVariable int id) {
         Product product = productService.getProductById(id);
@@ -55,6 +75,11 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
+    /**
+     * Gets the image of a single Product by its id.
+     * @param id The id of the product.
+     * @return product's image.
+     */
     @GetMapping("/product/{id}/image")
     public ResponseEntity<?> getProductImage(@PathVariable int id) {
         Product product = productService.getProductById(id);
@@ -64,6 +89,12 @@ public class ProductController {
         return new ResponseEntity<>(product.getImageData(), HttpStatus.OK);
     }
 
+    /**
+     * Updates an existing Product.
+     * @param product The updated product details.
+     * @param file The updated image file associated with the product.
+     * @return response of the product update process.
+     */
     @PutMapping("/product")
     public ResponseEntity<?> updateProduct(@RequestPart Product product, @RequestPart MultipartFile file) {
         Product updatedProduct = null;
@@ -77,6 +108,11 @@ public class ProductController {
 
     }
 
+    /**
+     * Deletes a product by its id.
+     * @param id The id of the product.
+     * @return response of the product deletion process.
+     */
     @DeleteMapping("/product/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable int id) {
         Product product = productService.getProductById(id);
@@ -88,6 +124,12 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
+    /**
+     * Adds a review to a product.
+     * @param id The id of the product.
+     * @param review The review to be added.
+     * @return response of the review addition process.
+     */
     @PostMapping("/product/{id}/review")
     public ResponseEntity<?> addReview(@PathVariable("id") int id, @RequestBody Review review) {
         Product product = productService.getProductById(id);
@@ -99,6 +141,11 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
+    /**
+     * Searches for products based on a keyword.
+     * @param keyword The keyword.
+     * @return list of products that match the keyword.
+     */
     @GetMapping("/products/search")
     public ResponseEntity<?> searchProducts(@RequestParam String keyword) {
 

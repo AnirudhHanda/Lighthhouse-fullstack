@@ -31,6 +31,16 @@ This project is a recreation of my earlier "Lighthouse" e-commerce website, orig
 * **Review System:** Allow users to submit reviews and display them on product pages.
 * **Pagination:** Efficiently handle large product lists with pagination controls.
 
+## Project Structure
+
+The project is split into two main parts: the backend server and the frontend client.
+Below is an overview of the directory and file structure:
+
+**FrontEnd Part**
+O16Project/lighthouse-frontend
+
+**Backend Part**
+O16Project/LightouseBackend
 
 **Getting Started**
 
